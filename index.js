@@ -10,6 +10,5 @@ function updateclock(){
     document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds} ${meredian}`;
 
 }
-
 updateclock();
 setInterval(updateclock,1000);
