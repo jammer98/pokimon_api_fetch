@@ -1,14 +1,19 @@
-function updateclock(){
-    const now = new Date();
-    let hours = now.getHours();
-    const meredian = hours > 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
-    hours = hours.toString().padStart(2,0);
-    const minutes = now.getMinutes().toString().padStart(2,0);
-    const seconds = now.getSeconds().toString().padStart(2,0);
+const display = document.getElementById("display");
 
-    document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds} ${meredian}`;
+function appendToDisplay(input){
+    display.value += input;
+}
+
+function Calculate(){
+    try{
+        display.value = eval(display.value);
+    }
+    catch(error){
+        display.value = "ERROR !!";
+    }
 
 }
-updateclock();
-setInterval(updateclock,1000);
+function ClearDisplay(){
+    display.value = "";
+
+}
