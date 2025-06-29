@@ -1,19 +1,33 @@
-const display = document.getElementById("display");
+const choice = ["rock","paper","scissors"];
+const playerdisplay = document.getElementById("playerdisplay");
+const computerdisplay = document.getElementById("computerdisplay");
+const resultsdisplay  = document.getElementById("results");
 
-function appendToDisplay(input){
-    display.value += input;
-}
+function playgame(playerchoice){
 
-function Calculate(){
-    try{
-        display.value = eval(display.value);
+    const computerchoice = choice[Math.floor(Math.random() * 3)];
+    let result = "";
+
+    if(playerchoice === computerchoice){
+        result = "IT'S A TIE !! 🤪";
     }
-    catch(error){
-        display.value = "ERROR !!";
+    else{
+        switch(playerchoice){
+            case "rock" :
+                result = (computerchoice === "scissors") ? "YOU WIN 🥰!!" : "YOU LOOSE 😂";
+            break; 
+
+            case "paper" :
+                result = (computerchoice === "rock") ? "YOU WIN 🥰!!" : "YOU LOOSE 😂";
+            break; 
+
+            case "scissors" :
+                result = (computerchoice === "paper") ? "YOU WIN 🥰!!" : "YOU LOOSE 😂";
+            break;   
+        }
     }
 
-}
-function ClearDisplay(){
-    display.value = "";
-
+    playerdisplay.textContent = `PLAYER CHOICE : ${playerchoice}`;
+    computerdisplay.textContent = `COMPUTER CHOICE : ${computerchoice}`;
+    resultsdisplay.textContent = result;
 }
