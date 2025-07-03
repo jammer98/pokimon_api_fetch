@@ -1,33 +1,25 @@
-const choice = ["rock","paper","scissors"];
-const playerdisplay = document.getElementById("playerdisplay");
-const computerdisplay = document.getElementById("computerdisplay");
-const resultsdisplay  = document.getElementById("results");
+// fetch data from an api and display the sprite in the dom
 
-function playgame(playerchoice){
+async function fetchdata(){
+        try{
+                const pokimonname = document.getElementById("pokimonName").value.toLowerCase(); 
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokimonname}`);
 
-    const computerchoice = choice[Math.floor(Math.random() * 3)];
-    let result = "";
+                if(!response.ok){
+                        throw new Error("could not fetch the data");
+                }
 
-    if(playerchoice === computerchoice){
-        result = "IT'S A TIE !! 🤪";
-    }
-    else{
-        switch(playerchoice){
-            case "rock" :
-                result = (computerchoice === "scissors") ? "YOU WIN 🥰!!" : "YOU LOOSE 😂";
-            break; 
+                const data =  await response.json();
+                const sprite = data.sprites.front_default;
+                const spriteImage = document.getElementById("pokimonImage");
 
-            case "paper" :
-                result = (computerchoice === "rock") ? "YOU WIN 🥰!!" : "YOU LOOSE 😂";
-            break; 
+                spriteImage.src = sprite;
+                spriteImage.style.display = "block"; 
 
-            case "scissors" :
-                result = (computerchoice === "paper") ? "YOU WIN 🥰!!" : "YOU LOOSE 😂";
-            break;   
         }
-    }
+        catch(error){
+                console.error(error);
+        }
 
-    playerdisplay.textContent = `PLAYER CHOICE : ${playerchoice}`;
-    computerdisplay.textContent = `COMPUTER CHOICE : ${computerchoice}`;
-    resultsdisplay.textContent = result;
 }
+
